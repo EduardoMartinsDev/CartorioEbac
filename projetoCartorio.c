@@ -67,25 +67,25 @@ int consulta()
 	char cpf[40];
 	char conteudo[200];
 		
-		printf("Digite o CPF a ser consultado: ");
-		scanf("%s", cpf);
+	printf("Digite o CPF a ser consultado: ");
+	scanf("%s", cpf);
 		
-		FILE *file;
-		file = fopen(cpf, "r");
+	FILE *file;
+	file = fopen(cpf, "r");
 			
-			if(file == NULL)
+	if(file == NULL)
+	{
+		printf("Não foi possível abrir o arquivo. Não localizado! \n");
+	}
+			
+		while(fgets(conteudo, 200, file) != NULL)
 			{
-				printf("Não foi possível abrir o arquivo. Não localizado! \n");
+				printf("\nEssas são as informações do usuário: ");
+				printf("%s", conteudo);
+				printf("\n\n");
 			}
-			
-				while(fgets(conteudo, 200, file) != NULL)
-				{
-					printf("\nEssas são as informações do usuário: ");
-					printf("%s", conteudo);
-					printf("\n\n");
-				}
 	
-					system("pause");
+				system("pause");
 		
 }
 
@@ -95,24 +95,32 @@ int deletar()
 		
 		char cpf[40];
 	
-			printf("Digite o CPF do usuário a ser deletado: ");
-			scanf("%s",cpf);		
-				
-			FILE *file;
-			file = fopen(cpf, "r");
-			fclose(file);
-						
-				if(file == NULL)
+		printf("Digite o CPF do usuário a ser deletado: ");
+		scanf("%s",cpf);
+		
+		
+	
+		FILE *file;	
+		file = fopen(cpf,"r");
+	
+		if(file == NULL)
+		{
+			printf("O usuário não se encontra no sistema!.\n");
+			system("pause");
+		}
+				else
 				{
-					printf("O usuário não foi encontrado no sistema!.\n\n");
-					system("pause");
+					fclose(file);
+					remove(cpf);
+					FILE *file;	
+					file = fopen(cpf,"r");
+						if(file == NULL)
+							{
+								printf("Usuário deletado com sucesso!.\n");
+									system("pause");
+							}
 				}
-					else
-					{
-						remove(cpf);
-						printf("O usuário foi deletado do sistema com sucesso!.\n\n");
-						system("pause");
-					}	
+				fclose(file);
 															
 }
 
@@ -123,11 +131,11 @@ int main()
 	char senhadigitada[]="a";
 	int comparacao;
 	
-		printf("### Cartório da EBAC ###\n\n");
-		printf("Login de administrador!\n\nDigite a sua senha: ");
-		scanf("%s",senhadigitada);
+	printf("### Cartório da EBAC ###\n\n");
+	printf("Login de administrador!\n\nDigite a sua senha: ");
+	scanf("%s",senhadigitada);
 		
-		comparacao = strcmp(senhadigitada, "admin");
+	comparacao = strcmp(senhadigitada, "admin");
 		
 		if(comparacao == 0)
 		{
